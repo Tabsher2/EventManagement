@@ -1,0 +1,47 @@
+.faq { 
+	cursor:pointer;
+	font-size: 125%;
+	background: #333;
+	border: 2px solid #111;
+	font-weight: bold;
+	padding: 1%;
+	color: #fa4;
+	text-align: left;
+}
+	
+.faa { 
+	display: none;
+	margin-top: 1em;
+	background: #444;
+	border: 2px solid #111;
+	padding: 1%;
+	color: #eee;
+	text-align: left;
+}
+
+.titleContainer{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 1%;
+	background: rgba(230,230,230,0.4);
+	border: 2px solid #111;
+	padding-left: 1%;
+	padding-right: 1%;
+	padding-bottom: 0.5%
+}
+.title{
+	color: #eee;
+	background: #333;
+	border: 2px solid #111;
+	padding: 2%;
+	text-align: center;
+}
+
+.container{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 1%;
+	background: rgba(230,230,230,0.4);
+	border: 2px solid #111;
+	padding: 1%;
+}	

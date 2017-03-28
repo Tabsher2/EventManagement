@@ -1,0 +1,84 @@
+<html>
+
+<head>
+
+<title> FAQ</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="EventJS/faq.js"></script>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="EventCSS/layout.css">
+<link rel="stylesheet" type="text/css" href="EventCSS/faq.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body id="background">
+	<div id="menu">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	  <li><a href="faq.html">FAQ</a></li>
+	  <li><a href="leaderboards.html">Leaderboards</a></li>
+	  <li><a href="about.html">About</a></li>
+	  <li><a href="contact.html">Contact</a></li>
+	</ul>
+	</div>
+</head>
+<body>
+<div class="titleContainer">
+	<h1 class="title">Frequently Asked Questions</h1>
+</div>
+<div class="container">
+	<div class="faq" onclick="toggle('faq1')">
+		How do I add a University to the Website?
+		<div id="faq1" class="faa">
+		If you are registered as a University on our website, you are able to register one University to the system. Once
+		a University is registered it can start allowing students and RSOs to list it as their University. You can also edit
+		any info about the University you added to the system.
+		</div>
+	</div>
+	<br>
+
+	<div class="faq" onclick="toggle('faq2')">
+		If I register as a University, can I still perform the roles of a student?
+		<div id="faq2" class="faa">
+		No, you cannot register as both a student and a University with only one account. If you would like to perform the roles of
+		both you will need multiple .edu e-mail addresses.
+		</div>
+	</div>
+	<br>
+	
+	<div class="faq" onclick="toggle('faq3')">
+		Who is the admin for an RSO?
+		<div id="faq3" class="faa">
+		Whichever user creates the RSO will be assigned as the admin for that RSO.
+		</div>
+	</div>
+	<br>
+	
+	<div class="faq" onclick="toggle('faq4')">
+		How do I register a new RSO?
+		<div id="faq4" class="faa">
+		Any student can register a new RSO. However you will need at least 5 other students from the same University to list as well
+		when creating a new RSO otherwise the system will reject the request, as we do not want clubs with less than 6 members.
+		</div>
+	</div>
+	<br>
+	
+	<div class="faq" onclick="toggle('faq5')">
+		Who approves my request to join an RSO?
+		<div id="faq5" class="faa">
+		Once you submit a request to join an RSO, a notification will be sent to that admin containing your information.
+		The next time they log on to the system they will see your request on their main page and they can either confirm
+		or deny your membership request. Upon being a confirmed member you will be able to see the events that RSO has published.
+		</div>
+	</div>
+</div>
+	
+</body>
+</html>
