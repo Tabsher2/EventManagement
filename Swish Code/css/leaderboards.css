@@ -1,0 +1,61 @@
+.titleContainer{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 1%;
+	background: rgba(230,230,230,0.4);
+	border: 2px solid #111;
+	padding-left: 1%;
+	padding-right: 1%;
+	padding-bottom: 1%;
+}
+
+.title{
+	background: #333;
+	border: 2px solid #111;
+	padding: 2%;
+	color: #eee;
+}
+
+.dropdowns{
+	background: #333;
+	border: 2px solid #111;
+	padding: .75% 2%;
+}
+
+.leaderboards{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 1%;
+	background: rgba(230,230,230,0.4);
+	border: 2px solid #111;
+}
+
+.leaderboardTitle{
+	padding: 1%;
+	background: #333;
+	border: 2px solid #111;
+	color: #eee; padding: 1%;
+	margin-bottom: 1%
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #ddd;
+	color: #000;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+	color: #000;
+}

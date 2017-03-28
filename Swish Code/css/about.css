@@ -1,0 +1,46 @@
+.logoContainer{
+	margin-bottom: 1em
+}
+
+.logoImg{
+	width:25%;
+	display:block;
+	margin:auto
+}
+
+.body{
+	border: 4px solid #555;
+	background-color: rgba(255,255,255,0.7);
+	margin: auto;
+	width: 40%;
+	min-width: 40%;
+}
+
+.WhatIsSwish{
+	text-align:center;
+	margin-top: 1%;
+	margin-bottom: 0%;
+}
+
+.specialtext{
+	display: block;
+	text-align:center;
+	margin:auto;
+	width:90%;
+	padding: 1%;
+	font-size: 150%;
+	color: #f07b00;
+}
+
+.paragraph{
+	display: block;
+	margin:auto;
+	width:90%;
+	padding: 1%;
+	text-align: start;
+}
+
+.ChallengeOthers{
+	text-align:center;
+	margin: 0px;
+}

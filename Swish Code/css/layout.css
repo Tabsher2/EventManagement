@@ -1,0 +1,53 @@
+#background{
+	background: #ff920c;
+	background: -webkit-linear-gradient(to right, #ff920c, #f07b00, #000, #111, #222, #333, #444, #444, #333, #222, #111, #000, #f07b00, #ff920c);
+	background: -o-linear-gradient(to right, #ff920c, #f07b00, #000, #111, #222, #333, #444, #444, #333, #222, #111, #000, #f07b00, #ff920c);
+	background: -moz-linear-gradient(to right, #ff920c, #f07b00, #000, #111, #222, #333, #444, #444, #333, #222, #111, #000, #f07b00, #ff920c);
+	background: linear-gradient(to right, #ff920c, #f07b00, #000, #111, #222, #333, #444, #444, #333, #222, #111, #000, #f07b00, #ff920c);
+}
+
+#menu ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-size: 140%;
+	background-color: #333;
+}
+
+#menu li {
+	float: left;
+	padding-top: .13%
+}
+
+#menu li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+#menu li a:hover {
+	background-color: #111;
+}
+
+#accounts{
+	float: right;
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+
+#accountLink{
+	color: white;
+	padding-right: 22px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.menuButton {
+	color: #ffffff;
+	margin-top: 1%;
+	background-color: #f07b00;
+	height: 30px;
+}

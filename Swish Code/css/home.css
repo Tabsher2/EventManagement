@@ -1,0 +1,67 @@
+.news {
+	width: 60%;
+	background: #333333;
+	border: 2px solid #111111;
+	display: inline-block;
+	float: left;
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 1%;
+}
+
+ .carousel-inner > .item > img,
+ .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  
+.imgNoMargin{
+	margin: 0 auto
+}
+ 
+.leaderboard{
+	width: 36%;
+	background: #333333;
+	border: 2px solid #111111;
+	display: inline-block;
+	float: right;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-bottom: 1%;
+}
+
+.column{
+	width: 70%;
+	overflow: auto;
+	margin-left: 15%;
+	margin-right: 15%;
+	background: rgba(230,230,230,0.4);
+	border: 2px solid #111111;
+	padding: 1%;
+	color: #eeeeee;
+}
+
+.twitter-timeline{
+	margin-top: 1em;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+	margin-top: 1%;
+	min-width: 70%;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:nth-child(odd) {
+	background-color: #ffffff;
+}

@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<script src="http://static.dudamobile.com/DM_redirect.js" type="text/javascript"></script>
+<script type="text/javascript">DM_redirect("http://mobile.dudasite.com/site/swishdagame");</script>
+
+<title> NewUser</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="js/newUser.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="css/layout.css">
+<link rel="stylesheet" type="text/css" href="css/createAccount.css">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body id="background" ng-app="newUserApp" ng-controller="newUserViewModel" ng-init="loadUsers()">
+	<div id="menu">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	  <li><a href="faq.html">FAQ</a></li>
+	  <li><a href="leaderboards.html">Leaderboards</a></li>
+	  <li><a href="about.html">About</a></li>
+	  <li><a href="contact.html">Contact</a></li>
+	  <div id="smedia" style="float: right">
+	    <li><a href="login.html">Log In</a></li>
+	    <li><a href="newuser.html">Sign Up</a></li>
+		<li><a target="_blank" title="Facebook" href="http://www.facebook.com/SwishGame"><img alt="Facebook"
+		src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png" border=0></a></li>
+		<li><a target="_blank" title="Twitter" href="http://www.twitter.com/swish_game"><img alt="Twitter"
+		src="https://c866088.ssl.cf3.rackcdn.com/assets/twitter30x30.png" border=0></a></li>
+		<li><a target="_blank" title="Tumblr" href="https://www.swishgameUCF.tumblr.com"><img alt="Tumblr"
+		src="Images/tumblrLogo.png" border=0></a></li>
+		<li><a target="_blank" title="Pinterest" href="http://www.pinterest.com/swish2409"><img alt="Pinterest"
+		src="https://c866088.ssl.cf3.rackcdn.com/assets/pinterest30x30.png" border=0></a></li>
+	  </div>
+	</ul>
+	</div>
+<div class="contact">
+	</br>
+	<h1>Create Account</h1>
+	<p style="color:#fff;">Sign up now and begin playing even faster.</p>
+</div>
+</br>
+<div class="message">
+		<span id="emailError" style="color: red; display: none">Email must be in the format: email@example.com.<br></span>
+		<span id="usernameError" style="color: red; display: none">Usernames must be alphanumeric, contain no spaces, and be between 3 and 18 characters long.<br></span>
+		<span id="passwordError" style="color: red; display: none">Passwords can contain a-z, A-Z, 0-9, and !@#$%^&*? <br>Passwords must contain at least one letter and one number. <br>Passwords must be between 6 and 18 characters long.<br></span>
+		<span id="ageError" style="color: red; display: none">You must be 13 years or older to create an account.<br></span>
+		<span id="dobError" style="color: red; display: none">Date of birth invalid.<br></span>
+		<input id="email" type="email" style="width: 300px; " placeholder="E-mail"></br></br>
+		<input id="username" type="text" style="width: 300px; " placeholder="Desired Username"></br></br>
+		<input id="pw" type="password" style="width: 300px; " placeholder="Password"></br></br>
+		<input id="dob" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" style="width: 300px; " placeholder="Date of Birth"></br></br>
+		<button id="send" type="submit" ng-click="createAccount()">Create Account</button>
+		<span id="feedback" style="display: none">Account successfully made!</span>
+</div>
+</body>
+</html>
