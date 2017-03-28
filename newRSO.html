@@ -2,10 +2,10 @@
 
 <head>
 
-<title>Add University</title>
+<title>Add Organization</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="EventJS/university.js"></script>
+<script src="EventJS/newRSO.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
 
 </head>
 
-<body id="background" ng-app="universityApp" ng-controller="universityViewModel">
+<body id="background" ng-app="newRSOApp" ng-controller="newRSOViewModel">
 	<div id="menu">
 	<ul>
 	  <li><a href="index.html">Home</a></li>
@@ -31,17 +31,20 @@
 	</div>
 <div class="contact">
 	</br>
-	<h1>Create University</h1>
-	<p style="color:#fff;">Register a new University</p>
+	<h1>Create a new Student Organization</h1>
+	<p style="color:#fff;">Fill out the fields to below to register a new student organization.</p>
 </div>
 </br>
 <div class="message">
-		<input id="name" type="text" style="width: 300px;" placeholder="University Name"></br></br>
-		<input id="location" type="text" style="width: 300px; " placeholder="Address"></br></br>
+		<input id="name" type="text" style="width: 300px;" placeholder="Organization Name"></br></br>
 		<textarea id="description" rows="4" cols="40" placeholder="Description"></textarea></br></br>
-		<input id="numStudents" type="number" style="width: 300px;" placeholder="Number of Students"></br></br>
-		<button id="send" type="submit" ng-click="createUniversity()">Add University</button>
-		<span id="feedback" style="display: none">University successfully made!</span>
+		<input id="member1" type="email" style="width: 300px;" placeholder="Member 1 E-mail"></br></br>
+		<input id="member2" type="email" style="width: 300px;" placeholder="Member 2 E-mail"></br></br>
+		<input id="member3" type="email" style="width: 300px;" placeholder="Member 3 E-mail"></br></br>
+		<input id="member4" type="email" style="width: 300px;" placeholder="Member 4 E-mail"></br></br>
+		<input id="member5" type="email" style="width: 300px;" placeholder="Member 5 E-mail"></br></br>
+		<button id="send" type="submit" ng-click="createRSO()">Create RSO</button>
+		<span id="feedback" style="display: none">Student Organization successfully registered!</span>
 </div>
 </body>
 </html>

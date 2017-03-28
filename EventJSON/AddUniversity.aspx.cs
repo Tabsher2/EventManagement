@@ -39,7 +39,7 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		try
 		{
 			request = GetRequestInfo();
-			if( request.name == null || request.location == null || request.description == null || request.numStudents == null ){
+			if( request.name == null || request.location == null || request.description == null || request.numStudents == null || request.admin == null){
 				response.error = "University not created";
 				SendInfoAsJson(response);
 				
