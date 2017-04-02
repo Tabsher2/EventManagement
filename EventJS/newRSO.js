@@ -8,6 +8,7 @@ var app = angular.module('newRSOApp', []).controller('newRSOViewModel', function
 	$scope.taken = false;
 	$scope.invalid = false;
 	$scope.userID = 3;
+	$scope.uniID = 1;
 	$scope.userEmail = "tester@knights.ucf.edu";
 	
 	/****************************
@@ -27,6 +28,7 @@ var app = angular.module('newRSOApp', []).controller('newRSOViewModel', function
 		var member5 = document.getElementById('member5').value;
 		var rsoAdmin = $scope.userID;
 		var adminEmail = $scope.userEmail;
+		var userUni = $scope.uniID;
 		var atIndex = adminEmail.length - adminEmail.indexOf('@');
 		if (member1.substring(member1.length - atIndex, member1.length) != adminEmail.substring(adminEmail.length - atIndex, adminEmail.length))
 			flag = true;
@@ -49,7 +51,7 @@ var app = angular.module('newRSOApp', []).controller('newRSOViewModel', function
 
 		var dt = '{\"name\":\"' + name + '\",\"description\": \"' + description + '\",\"admin\": \"' + rsoAdmin +
 					'\",\"member1\":\"' + member1 + '\",\"member2\": \"' + member2 + '\",\"member3\": \"' + member3 + 
-					'\",\"member4\":\"' + member4 + '\",\"member5\": \"' + member5 + '\"}';
+					'\",\"member4\":\"' + member4 + '\",\"member5\": \"' + member5 + '\",\"uniID\": \"' + userUni + '\"}';
 		
 		
 		$.ajax({

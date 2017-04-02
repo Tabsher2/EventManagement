@@ -1,0 +1,45 @@
+<html>
+
+<head>
+
+<title>Add Organization</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="EventJS/joinRSO.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="EventCSS/layout.css">
+<link rel="stylesheet" type="text/css" href="EventCSS/createAccount.css">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body id="background" ng-app="joinRSOApp" ng-controller="joinRSOViewModel" ng-init="loadRSOs()">
+	<div id="menu">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	  <li><a href="faq.html">FAQ</a></li>
+	  <li><a href="leaderboards.html">Leaderboards</a></li>
+	  <li><a href="about.html">About</a></li>
+	  <li><a href="contact.html">Contact</a></li>
+	</ul>
+	</div>
+<div class="contact">
+	</br>
+	<h1>Join an existing Student Organization</h1>
+	<p style="color:#fff;">Fill out the fields to below to request to join a student organization.</p>
+</div>
+</br>
+<div class="message">
+		<select id="rsoSelect">
+		</select><br/><br/>
+		<button id="send" type="submit" ng-click="requestJoinRSO()">Send Request</button>
+		<span id="feedback" style="display: none">Request sent!</span>
+</div>
+</body>
+</html>

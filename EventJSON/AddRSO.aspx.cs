@@ -22,6 +22,7 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		public string member3;
 		public string member4;
 		public string member5;
+		public int uniID;
 		public int admin;
 	}
 	
@@ -46,7 +47,6 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		RSORequest request;
 		RSOResponse response = new RSOResponse();
 		User idStorage = new User();
-		int selectedUniversity = -1;
 		int rsoID = -1;
 		string adminEmail = String.Empty;
 		response.error = String.Empty;
@@ -57,7 +57,7 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		{
 			request = GetRequestInfo();
 			if( request.name == null ||  request.description == null || request.member1 == null || request.member2 == null
-				|| request.member3 == null || request.member4 == null || request.member5 == null || request.admin == null) {
+				|| request.member3 == null || request.member4 == null || request.member5 == null ) {
 				response.error = "RSO not created";
 				SendInfoAsJson(response);
 				
@@ -81,9 +81,10 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		{
 			connection.Open();
 			
-			string sql = String.Format("SELECT * FROM StudentOrg WHERE name=@un");
+			string sql = String.Format("SELECT * FROM StudentOrg WHERE name=@so AND uniID=@un");
 			SqlCommand command = new SqlCommand( sql, connection );
-			command.Parameters.Add(new SqlParameter("@un", request.name));
+			command.Parameters.Add(new SqlParameter("@so", request.name));
+			command.Parameters.Add(new SqlParameter("@un", request.uniID));
 			SqlDataReader reader = command.ExecuteReader();
 			if( reader.Read() )
 			{
@@ -113,8 +114,15 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		{
 			connection.Open();
 			
-			string sql = String.Format("SELECT * FROM EventUser");
+			string sql = String.Format("SELECT * FROM EventUser WHERE email=@e1 OR email=@e2 OR email=@e3 OR email=@e4 OR email=@e5 OR userID=@ui AND uniID=@un");
 			SqlCommand command2 = new SqlCommand( sql, connection );
+			command2.Parameters.Add(new SqlParameter("@e1", request.member1));
+			command2.Parameters.Add(new SqlParameter("@e2", request.member2));
+			command2.Parameters.Add(new SqlParameter("@e3", request.member3));
+			command2.Parameters.Add(new SqlParameter("@e4", request.member4));
+			command2.Parameters.Add(new SqlParameter("@e5", request.member5));
+			command2.Parameters.Add(new SqlParameter("@ui", request.admin));
+			command2.Parameters.Add(new SqlParameter("@un", request.uniID));
 			SqlDataReader reader2 = command2.ExecuteReader();
 			while( reader2.Read() )
 			{
@@ -147,43 +155,16 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 				connection.Close();
 			}
 		}
+		
 
 		//Create the student organization in the database
 		try
 		{
 			connection.Open();
 			
-			string sql = String.Format("INSERT into StudentOrg (name, description, admin) VALUES ('{0}','{1}','{2}')", request.name, request.description, request.admin);
+			string sql = String.Format("INSERT into StudentOrg (name, description, admin, uniID) VALUES ('{0}','{1}','{2}', '{3}')", request.name, request.description, request.admin, request.uniID);
 			SqlCommand command3 = new SqlCommand( sql, connection );
 			command3.ExecuteNonQuery();
-		}
-		catch (Exception ex)
-		{
-			response.error = ex.Message.ToString();
-		}
-		finally
-		{
-			if (connection.State == ConnectionState.Open)
-			{
-				connection.Close();
-			}
-		}
-
-		//Find out what University the students go to
-		try
-		{
-			connection.Open();
-			
-			string sql = String.Format("SELECT * from uniToUser WHERE userID=@ai");
-			SqlCommand command4 = new SqlCommand( sql, connection );
-			command4.Parameters.Add(new SqlParameter("@ai", request.admin));
-			SqlDataReader reader4 = command4.ExecuteReader();
-			if ( reader4.Read() )
-			{
-				selectedUniversity = Convert.ToInt32( reader4["uniID"] );
-			}
-			else
-				response.error = "You are not registered to any University. Failed to register organization.";
 		}
 		catch (Exception ex)
 		{
@@ -202,9 +183,10 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 		{
 			connection.Open();
 			
-			string sql = String.Format("SELECT * FROM StudentOrg WHERE name=@on");
+			string sql = String.Format("SELECT * FROM StudentOrg WHERE name=@on AND uniID=@un");
 			SqlCommand command5 = new SqlCommand( sql, connection );
 			command5.Parameters.Add(new SqlParameter("@on", request.name));
+			command5.Parameters.Add(new SqlParameter("@un", request.uniID));
 			SqlDataReader reader5 = command5.ExecuteReader();
 			if ( reader5.Read() )
 			{
@@ -225,35 +207,13 @@ public partial class JSONServices_AddRSO : System.Web.UI.Page
 			}
 		}
 
-		//Assign the rso to the school
-		try
-		{
-			connection.Open();
-			
-			string sql = String.Format("INSERT into uniToRso (uniID, rsoID) VALUES ('{0}', '{1}')", selectedUniversity, rsoID);
-			SqlCommand command5 = new SqlCommand( sql, connection );
-			command5.ExecuteNonQuery();
-		}
-		catch (Exception ex)
-		{
-			response.error = ex.Message.ToString();
-		}
-		finally
-		{
-			if (connection.State == ConnectionState.Open)
-			{
-				connection.Close();
-			}
-		}
-
 		//Assign the students to the rso
 		try
 		{
 			connection.Open();
 			
-			string sql = String.Format("INSERT into rsoToUsers (rsoID, userID, groupMember, userEmail) VALUES ('{0}', '{1}', '{2}', '{3}'), ('{4}', '{5}', '{6}', '{7}'), ('{8}', '{9}', '{10}', '{11}'), ('{12}', '{13}', '{14}', '{15}'), ('{16}', '{17}', '{18}', '{19}'), ('{20}', '{21}', '{22}', '{23}')",
-										rsoID, request.admin, 1, adminEmail, rsoID, idStorage.member1ID, 1, request.member1, rsoID, idStorage.member2ID, 1, request.member2, rsoID, idStorage.member3ID, 1, request.member3, rsoID, idStorage.member4ID, 1, request.member4,
-										 rsoID, idStorage.member5ID, 1, request.member5);
+			string sql = String.Format("INSERT into rsoToUsers (rsoID, userID, groupMember, userEmail) VALUES ('{0}', '{1}', '{2}', '{3}'), ('{4}', '{5}', '{6}', '{7}'), ('{8}', '{9}', '{10}', '{11}'), ('{12}', '{13}', '{14}', '{15}'), ('{16}', '{17}', '{18}', '{19}'), ('{20}', '{21}', '{22}', '{23}')", rsoID, request.admin, 1, adminEmail, rsoID, idStorage.member1ID, 1, request.member1, rsoID, idStorage.member2ID, 1, request.member2, rsoID, idStorage.member3ID, 1, request.member3, rsoID, idStorage.member4ID, 1, request.member4,
+				rsoID, idStorage.member5ID, 1, request.member5);
 			SqlCommand command6 = new SqlCommand( sql, connection );
 			command6.ExecuteNonQuery();
 		}
