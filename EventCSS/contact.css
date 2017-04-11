@@ -1,0 +1,34 @@
+.contact {
+	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	border: 1px solid #000;
+	background: rgba(230,230,230,0.4);
+	height: 20%;
+	color: #eee;
+}
+
+.message {
+	max-width: 500px;
+	padding: 3%;
+	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background: #444;
+	border: 1px solid #000;
+}
+
+.banner{
+	color: white;
+}
+
+.input{
+	width: 300px;
+}
+
+.send{
+	background-color: #8df;
+	width: 250px;
+}

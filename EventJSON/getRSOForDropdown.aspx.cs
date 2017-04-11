@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -8,30 +8,38 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
+using System.Net.Mail;
 
-public partial class JSONServices_AddUniversity : System.Web.UI.Page
+public partial class JSONServices_Contact : System.Web.UI.Page
 {
 
-	public struct UniversityRequest
+	public struct GenericRequest
 	{
-		public string name;
-		public string location;
-		public string description;
-		public int numStudents;
-		public int admin;
+		public int userID;
 	}
 	
-	public struct UniversityResponse
+	public struct RSO
 	{
-		public string message;
+		public string name;
+		public int id;
+		
+		public RSO(string s, int i){
+			name = s;
+			id = i;
+		}
+	}
+	
+	public struct GenericResponse
+	{
+		public int value;
+		public List<RSO> rsos;
 		public string error;
 	}
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		UniversityRequest request;
-		UniversityResponse response = new UniversityResponse();
+		GenericRequest request;
+		GenericResponse response = new GenericResponse();
 		response.error = String.Empty;
 
 		// Need passed in store id and number of requested results.
@@ -39,12 +47,6 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		try
 		{
 			request = GetRequestInfo();
-			if( request.name == null || request.location == null || request.description == null || request.numStudents == null || request.admin == null){
-				response.error = "University not created";
-				SendInfoAsJson(response);
-				
-				return;
-			}
 		}
 		catch (Exception ex)
 		{
@@ -57,47 +59,30 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		}
 
 		// Do stuff here.
+		
 		SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 		try
 		{
 			connection.Open();
 			
-			string sql = String.Format("SELECT * FROM University WHERE name=@un");
+			response.rsos = new List<RSO>();
+			string sql = String.Format("SELECT S.name, S.rsoID FROM StudentOrg S, rsoToUsers R WHERE R.userID=@un AND S.rsoID=R.rsoID");
 			SqlCommand command = new SqlCommand( sql, connection );
-			command.Parameters.Add(new SqlParameter("@un", request.name));
+			command.Parameters.Add(new SqlParameter("@un", request.userID));
 			SqlDataReader reader = command.ExecuteReader();
-			if( reader.Read() )
+			while( reader.Read() )
 			{
-				response.error = "1";
+				response.rsos.Add(new RSO(Convert.ToString(reader["name"]),Convert.ToInt32(reader["rsoID"])));
 			}
+
 			
-			if( response.error != "")
-			{
-				SendInfoAsJson(response);
-				return;
-			}
-
-		}
-		catch (Exception ex)
-		{
-			response.error = ex.Message.ToString();
-		}
-		finally
-		{
-			if (connection.State == ConnectionState.Open)
-			{
-				connection.Close();
-			}
-		}
-		
-		try
-		{
-			connection.Open();
-			string sql = String.Format("INSERT into University (name,location,description,numStudents, superAdmin) VALUES ('{0}','{1}','{2}', '{3}', '{4}')", request.name, request.location, request.description, request.numStudents, request.admin);
-			SqlCommand command2 = new SqlCommand( sql, connection );
-			command2.ExecuteNonQuery();
-			response.message = "Succesfully added university!";
-
+			/*
+#if CRAP	
+			response.error = sql;
+			SendInfoAsJson(response);
+			return;
+#endif			
+			*/
 		}
 		catch (Exception ex)
 		{
@@ -114,7 +99,7 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		SendInfoAsJson(response);
 	}
 
-	UniversityRequest GetRequestInfo()
+	GenericRequest GetRequestInfo()
 	{
 		// Get the Json from the POST.
 		string strJson = String.Empty;
@@ -126,16 +111,17 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		}
 
 		// Deserialize the Json.
-		UniversityRequest request = JsonConvert.DeserializeObject<UniversityRequest>(strJson);
+		GenericRequest request = JsonConvert.DeserializeObject<GenericRequest>(strJson);
 
 		return (request);
 	}
 
-	void SendInfoAsJson(UniversityResponse response)
+	void SendInfoAsJson(GenericResponse response)
 	{
 		string strJson = JsonConvert.SerializeObject(response);
 		Response.ContentType = "application/json; charset=utf-8";
 		Response.Write(strJson);
 		Response.End();
 	}
+
 }

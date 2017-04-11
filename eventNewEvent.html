@@ -1,0 +1,64 @@
+<html>
+
+<head>
+
+<title>Add Event</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="EventJS/newEvent.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="EventCSS/layout.css">
+<link rel="stylesheet" type="text/css" href="EventCSS/createAccount.css">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body id="background" ng-app="newRSOApp" ng-controller="newRSOViewModel" ng-init="makeDropdown()">
+	<div id="menu">
+	<ul>
+	  <li><a href="eventIndex.html">Home</a></li>
+	  <li><a href="eventFaq.html">FAQ</a></li>
+	  <li><a href="eventAbout.html">About</a></li>
+	  <li><a href="EventContact.html">Contact</a></li>
+	</ul>
+	</div>
+<div class="contact">
+	</br>
+	<h1>Create a new Event</h1>
+	<p style="color:#fff;">Fill out the fields to below to create a new event.</p>
+</div>
+</br>
+<div class="message">
+		<select id="rso">
+		<option value='-1'>None</option>
+		</select></br></br>
+		<input id="name" type="text" style="width: 300px;" placeholder="Event Name"></br></br>
+		<select id="category">
+			<option value="social">Social</option>
+			<option value="fundraising">Fund Raising</option>
+			<option value="techtalk">Tech Talk</option>
+			<option value="other">Other</option>
+		</select></br></br>
+		<textarea id="description" rows="4" cols="40" placeholder="Description"></textarea></br></br>
+		<input id="time" type="time" style="width: 300px;" placeholder="Start Time"></br></br>
+		<input id="date" type="date" style="width: 300px;" placeholder="Date"></br></br>
+		<input id="location" type="text" style="width: 300px;" placeholder="Location"></br></br>
+		<!--<input id="latlng" type="text" style="width: 300px;" placeholder="Latlng"></br></br>-->
+		<input id="contactPhone" type="text" style="width: 300px;" placeholder="Contact Phone"></br></br>
+		<input id="contactEmail" type="email" style="width: 300px;" placeholder="Contact Email"></br></br>
+		<select id="privacy">
+			<option value="0">Public</option>
+			<option value="1">Private</option>
+			<option value="2">RSO Only</option>
+		</select></br></br>
+		<button id="send" type="submit" ng-click="createEvent()">Create Event</button>
+		<span id="feedback" style="display: none">Event successfully created.</span>
+</div>
+</body>
+</html>

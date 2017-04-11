@@ -10,19 +10,16 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 
-public partial class JSONServices_AddUniversity : System.Web.UI.Page
+public partial class JSONServices_UploadImages : System.Web.UI.Page
 {
 
-	public struct UniversityRequest
+	public struct ImageRequest
 	{
 		public string name;
-		public string location;
-		public string description;
-		public int numStudents;
-		public int admin;
+		public string picture;
 	}
 	
-	public struct UniversityResponse
+	public struct ImageResponse
 	{
 		public string message;
 		public string error;
@@ -30,21 +27,16 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		UniversityRequest request;
-		UniversityResponse response = new UniversityResponse();
+		ImageRequest request;
+		ImageResponse response = new ImageResponse();
 		response.error = String.Empty;
+		int uniID = 0;
 
 		// Need passed in store id and number of requested results.
 		// 1. Deserialize the incoming Json.
 		try
 		{
 			request = GetRequestInfo();
-			if( request.name == null || request.location == null || request.description == null || request.numStudents == null || request.admin == null){
-				response.error = "University not created";
-				SendInfoAsJson(response);
-				
-				return;
-			}
 		}
 		catch (Exception ex)
 		{
@@ -68,15 +60,12 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 			SqlDataReader reader = command.ExecuteReader();
 			if( reader.Read() )
 			{
-				response.error = "1";
+				uniID = Convert.ToInt32( reader["uniID"] );
 			}
-			
-			if( response.error != "")
+			else
 			{
-				SendInfoAsJson(response);
-				return;
+				response.error = "No university found";
 			}
-
 		}
 		catch (Exception ex)
 		{
@@ -89,14 +78,26 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 				connection.Close();
 			}
 		}
+
+		if (response.error != "")
+		{
+			SendInfoAsJson(response);
+			return;
+		}
 		
+		//Insert image
 		try
 		{
 			connection.Open();
-			string sql = String.Format("INSERT into University (name,location,description,numStudents, superAdmin) VALUES ('{0}','{1}','{2}', '{3}', '{4}')", request.name, request.location, request.description, request.numStudents, request.admin);
+
+			byte[] img = null;
+			FileStream fs = new FileStream(request.picture, FileMode.Open, FileAccess.Read);
+			BinaryReader br = new BinaryReader(fs);
+			img = br.ReadBytes((int)fs.Length);
+
+			string sql = String.Format("INSERT into uniToImage (uniID, picture) VALUES ('{0}','{1}')", uniID, img);
 			SqlCommand command2 = new SqlCommand( sql, connection );
 			command2.ExecuteNonQuery();
-			response.message = "Succesfully added university!";
 
 		}
 		catch (Exception ex)
@@ -110,11 +111,14 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 				connection.Close();
 			}
 		}
+
+		response.message = "Successfully added images";
+		
 		
 		SendInfoAsJson(response);
 	}
 
-	UniversityRequest GetRequestInfo()
+	ImageRequest GetRequestInfo()
 	{
 		// Get the Json from the POST.
 		string strJson = String.Empty;
@@ -126,12 +130,12 @@ public partial class JSONServices_AddUniversity : System.Web.UI.Page
 		}
 
 		// Deserialize the Json.
-		UniversityRequest request = JsonConvert.DeserializeObject<UniversityRequest>(strJson);
+		ImageRequest request = JsonConvert.DeserializeObject<ImageRequest>(strJson);
 
 		return (request);
 	}
 
-	void SendInfoAsJson(UniversityResponse response)
+	void SendInfoAsJson(ImageResponse response)
 	{
 		string strJson = JsonConvert.SerializeObject(response);
 		Response.ContentType = "application/json; charset=utf-8";

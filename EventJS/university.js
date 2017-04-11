@@ -46,6 +46,42 @@ var app = angular.module('universityApp', []).controller('universityViewModel', 
 				}
 				else
 				{
+					sendImages();
+					document.getElementById('feedback').innerHTML = "University successfully made!";
+					document.getElementById('feedback').style.display = "block";
+				}
+			},
+			error: function(arg1, arg2, arg3) 
+			{
+				alert("Uh-Oh. Something went wrong.")
+			}
+		});
+	}
+
+	function sendImages()
+	{
+		var url = '/EventJSON/UploadImages.aspx';
+		
+		
+		var foo = document.getElementById('name').value;
+		var bar = document.getElementById('uniPic').value;
+		bar = escape(bar);
+		var dt = '{\"name\":\"' + foo + '\",\"picture\": \"' + bar + '\"}';
+		
+		$.ajax({
+			url: url,
+			type: 'POST',
+			dataType: 'json',
+			data: dt,
+			success: function(response) 
+			{
+				if(response.error === "1")
+				{
+					document.getElementById('feedback').innerHTML = "The name is already in use.";
+					document.getElementById('feedback').style.display = "block";
+				}
+				else
+				{
 					document.getElementById('send').style.display = "none";
 					document.getElementById('feedback').innerHTML = "University successfully made!";
 					document.getElementById('feedback').style.display = "block";
